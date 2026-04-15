@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Meet2Day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">Meet<span>2</span>Day</a>
+        <ul class="navbar-links">
+            <li><a href="despre-noi.html">Despre Noi</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="abonament.html" style="color:#f59e0b; font-weight:700;">⭐ Abonament</a></li>
+            <li><a href="login.html" class="navbar-btn">Login / Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>👤 Contul Tau</h1>
+        <p>Intra in comunitatea Meet2Day</p>
+    </header>
+
+    <main>
+        <div style="max-width:480px; margin:40px auto; padding:0 20px;">
+
+            <!-- TAB BUTTONS -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; margin-bottom:24px; border:1.5px solid #2d2d2d; border-radius:10px; overflow:hidden;">
+                <button id="tab-login" onclick="arataTabulLogin()" style="padding:14px; background:#2d2d2d; color:white; border:none; font-size:0.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer;">Login</button>
+                <button id="tab-register" onclick="arataTabulRegister()" style="padding:14px; background:#fdf8ee; color:#2d2d2d; border:none; font-size:0.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer;">Inregistrare</button>
+            </div>
+
+            <!-- MESAJE -->
+            <div id="mesaj-succes" style="display:none; background:#d4edda; border:1.5px solid #28a745; border-radius:10px; padding:16px; text-align:center; margin-bottom:16px;">
+                <p style="color:#28a745; font-weight:600;" id="text-succes"></p>
+            </div>
+
+            <div id="mesaj-eroare" style="display:none; background:#f8d7da; border:1.5px solid #dc3545; border-radius:10px; padding:16px; text-align:center; margin-bottom:16px;">
+                <p style="color:#dc3545; font-weight:600;" id="text-eroare"></p>
+            </div>
+
+            <!-- FORM LOGIN -->
+            <div id="form-login" class="lista-biserici">
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Email</label>
+                    <input type="email" id="login-email" placeholder="email@tau.ro" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.9rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Parola</label>
+                    <input type="password" id="login-parola" placeholder="Parola ta" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.9rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <button onclick="login()" style="width:100%; padding:14px; background:#2d2d2d; color:white; border:none; border-radius:10px; font-size:0.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer;">Intra in cont</button>
+                </div>
+
+            </div>
+
+            <!-- FORM REGISTER -->
+            <div id="form-register" class="lista-biserici" style="display:none;">
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Nume</label>
+                    <input type="text" id="reg-nume" placeholder="Numele tau" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.9rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Email</label>
+                    <input type="email" id="reg-email" placeholder="email@tau.ro" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.9rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Parola</label>
+                    <input type="password" id="reg-parola" placeholder="Minim 6 caractere" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.9rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <button onclick="register()" style="width:100%; padding:14px; background:#1a56db; color:white; border:none; border-radius:10px; font-size:0.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer;">Creeaza cont</button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL = 'https://finailutdvoxskufpbsj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_BtubSWnqF84BkP_5Yu5lQA_-RD24J5V';
+
+        function arataTabulLogin() {
+            document.getElementById('form-login').style.display = 'block';
+            document.getElementById('form-register').style.display = 'none';
+            document.getElementById('tab-login').style.background = '#2d2d2d';
+            document.getElementById('tab-login').style.color = 'white';
+            document.getElementById('tab-register').style.background = '#fdf8ee';
+            document.getElementById('tab-register').style.color = '#2d2d2d';
+            ascundeMesaje();
+        }
+
+        function arataTabulRegister() {
+            document.getElementById('form-login').style.display = 'none';
+            document.getElementById('form-register').style.display = 'block';
+            document.getElementById('tab-register').style.background = '#2d2d2d';
+            document.getElementById('tab-register').style.color = 'white';
+            document.getElementById('tab-login').style.background = '#fdf8ee';
+            document.getElementById('tab-login').style.color = '#2d2d2d';
+            ascundeMesaje();
+        }
+
+        function ascundeMesaje() {
+            document.getElementById('mesaj-succes').style.display = 'none';
+            document.getElementById('mesaj-eroare').style.display = 'none';
+        }
+
+        async function register() {
+            const nume = document.getElementById('reg-nume').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const parola = document.getElementById('reg-parola').value;
+
+            if (!nume || !email || !parola) {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = 'Te rugam sa completezi toate campurile!';
+                return;
+            }
+
+            if (parola.length < 6) {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = 'Parola trebuie sa aiba minim 6 caractere!';
+                return;
+            }
+
+            const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_KEY
+                },
+                body: JSON.stringify({ email, password: parola, data: { nume } })
+            });
+
+            const data = await response.json();
+
+            if (data.user || data.id) {
+                document.getElementById('mesaj-succes').style.display = 'block';
+                document.getElementById('text-succes').textContent = '✅ Cont creat! Verifica emailul pentru confirmare.';
+                document.getElementById('mesaj-eroare').style.display = 'none';
+            } else {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = data.msg || data.message || 'Eroare la inregistrare!';
+                document.getElementById('mesaj-succes').style.display = 'none';
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('login-email').value.trim();
+            const parola = document.getElementById('login-parola').value;
+
+            if (!email || !parola) {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = 'Te rugam sa completezi email si parola!';
+                return;
+            }
+
+            const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_KEY
+                },
+                body: JSON.stringify({ email, password: parola })
+            });
+
+            const data = await response.json();
+
+            if (data.access_token) {
+                localStorage.setItem('meet2day_token', data.access_token);
+                localStorage.setItem('meet2day_user', JSON.stringify(data.user));
+                document.getElementById('mesaj-succes').style.display = 'block';
+                document.getElementById('text-succes').textContent = '✅ Bine ai venit! Se redirectioneaza...';
+                document.getElementById('mesaj-eroare').style.display = 'none';
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+            } else {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = 'Email sau parola incorecta!';
+                document.getElementById('mesaj-succes').style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

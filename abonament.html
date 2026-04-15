@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abonament - Meet2Day</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .planuri-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .plan-card {
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .plan-free {
+            background: #fdf8ee;
+            border: 2px solid #2d2d2d;
+        }
+
+        .plan-premium {
+            background: #dc3545;
+            border: 2px solid #b02a37;
+            color: white;
+        }
+
+        .plan-gold {
+            background: #1a1a1a;
+            border: 2px solid #f59e0b;
+            color: #f59e0b;
+            font-family: 'Georgia', serif;
+        }
+
+        .plan-diamond {
+            background: #a21caf;
+            border: 2px solid #86198f;
+            color: white;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .plan-pret {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 16px 0 4px;
+        }
+
+        .plan-pret-sub {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 24px;
+        }
+
+        .plan-feature {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: opacity 0.2s;
+        }
+
+        .plan-btn:hover { opacity: 0.85; }
+
+        .plan-free .plan-btn {
+            background: #2d2d2d;
+            color: white;
+        }
+
+        .plan-premium .plan-btn {
+            background: white;
+            color: #dc3545;
+        }
+
+        .plan-gold .plan-btn {
+            background: #f59e0b;
+            color: #1a1a1a;
+        }
+
+        .plan-diamond .plan-btn {
+            background: white;
+            color: #a21caf;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f59e0b;
+            color: #1a1a1a;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .plan-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 16px 0;
+        }
+
+        .plan-free .plan-divider {
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        .iban-box {
+            background: #1a1a1a;
+            color: #f59e0b;
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-family: monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin: 12px 0;
+            word-break: break-all;
+        }
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .step-nr {
+            background: #2d2d2d;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 0.85rem;
+            color: #555;
+            padding-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">Meet<span>2</span>Day</a>
+        <ul class="navbar-links">
+            <li><a href="despre-noi.html">Despre Noi</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="abonament.html" style="color:#f59e0b; font-weight:700;">⭐ Abonament</a></li>
+            <li id="navbar-login-btn"><a href="login.html" class="navbar-btn">Login / Sign Up</a></li>
+            <li id="navbar-user-zone" style="display:none;" class="navbar-user">
+                <span class="navbar-user-name" id="navbar-user-name"></span>
+                <button class="navbar-logout" onclick="logout()">Logout</button>
+            </li>
+        </ul>
+    </nav>
+
+    <header>
+        <a href="index.html" class="inapoi">← Inapoi</a>
+        <h1>⭐ Alege Planul Tau</h1>
+        <p>Conecteaza-te cu mai multi oameni din judetul tau</p>
+    </header>
+
+    <main>
+
+        <div id="plan-activ" style="text-align:center; margin-top:20px; font-size:0.85rem; color:#888;"></div>
+
+        <div class="planuri-grid">
+
+            <!-- FREE -->
+            <div class="plan-card plan-free">
+                <div class="plan-name">Free</div>
+                <div class="plan-pret">0 lei</div>
+                <div class="plan-pret-sub">pentru totdeauna</div>
+                <hr class="plan-divider">
+                <p class="plan-feature">✅ 2 evenimente / luna</p>
+                <p class="plan-feature">✅ Acces la toate paginile</p>
+                <p class="plan-feature">✅ Card standard</p>
+                <p class="plan-feature">❌ Fara badge</p>
+                <p class="plan-feature">❌ Fara prioritate</p>
+                <button class="plan-btn" disabled>Plan curent</button>
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="plan-card plan-premium">
+                <div class="plan-name">Premium</div>
+                <div class="plan-pret">30 lei</div>
+                <div class="plan-pret-sub">pe luna</div>
+                <hr class="plan-divider">
+                <p class="plan-feature">✅ 5 evenimente / luna</p>
+                <p class="plan-feature">✅ Card rosu distinctiv</p>
+                <p class="plan-feature">✅ Badge PREMIUM</p>
+                <p class="plan-feature">✅ Prioritate in lista</p>
+                <p class="plan-feature">✅ Acces toate judetele</p>
+                <button class="plan-btn" onclick="alegeaPlan('Premium', 30)">Alege Premium</button>
+            </div>
+
+            <!-- GOLD -->
+            <div class="plan-card plan-gold">
+                <div class="popular-badge">⭐ Cel mai popular</div>
+                <div class="plan-name">Gold</div>
+                <div class="plan-pret">50 lei</div>
+                <div class="plan-pret-sub">pe luna</div>
+                <hr class="plan-divider">
+                <p class="plan-feature">✅ 10 evenimente / luna</p>
+                <p class="plan-feature">✅ Card negru & auriu</p>
+                <p class="plan-feature">✅ Badge GOLD</p>
+                <p class="plan-feature">✅ Prioritate maxima</p>
+                <p class="plan-feature">✅ Acces toate judetele</p>
+                <button class="plan-btn" onclick="alegeaPlan('Gold', 50)">Alege Gold</button>
+            </div>
+
+        </div>
+
+        <!-- DIAMOND -->
+        <div style="max-width:340px; margin:0 auto 40px; padding:0 20px;">
+            <div class="plan-card plan-diamond">
+                <div class="popular-badge" style="background:#a21caf; color:white;">💎 VIP</div>
+                <div class="plan-name">Diamond</div>
+                <div class="plan-pret">70 lei</div>
+                <div class="plan-pret-sub">pe luna</div>
+                <hr class="plan-divider">
+                <p class="plan-feature">✅ 15 evenimente / luna</p>
+                <p class="plan-feature">✅ Card magenta exclusivist</p>
+                <p class="plan-feature">✅ Badge DIAMOND</p>
+                <p class="plan-feature">✅ Prioritate absoluta</p>
+                <p class="plan-feature">✅ Acces toate judetele</p>
+                <p class="plan-feature">✅ Suport prioritar</p>
+                <button class="plan-btn" onclick="alegeaPlan('Diamond', 70)">Alege Diamond</button>
+            </div>
+        </div>
+
+        <!-- CUM PLATESTI -->
+        <div style="max-width:640px; margin:0 auto 60px; padding:0 20px;">
+
+            <div class="lista-biserici">
+
+                <div class="biserica-item">
+                    <h3>💳 Cum platesti?</h3>
+                    <div class="steps" style="margin-top:16px;">
+                        <div class="step">
+                            <div class="step-nr">1</div>
+                            <p class="step-text">Alege planul dorit si apasa butonul</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-nr">2</div>
+                            <p class="step-text">Trimite suma corecta prin transfer bancar la contul de mai jos</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-nr">3</div>
+                            <p class="step-text">Trimite dovada platii pe WhatsApp sau email — activam planul in maxim 24 ore!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="biserica-item">
+                    <h3>🏦 Date bancare — Monese</h3>
+                    <p style="font-size:0.82rem; color:#555; margin-bottom:8px;">IBAN:</p>
+                    <div class="iban-box">RO07 BREL 0006 3020 8116 0100</div>
+                    <p style="font-size:0.82rem; color:#555; margin:8px 0 4px;">BIC / SWIFT:</p>
+                    <div class="iban-box">BRELROBU</div>
+                    <p style="font-size:0.78rem; color:#888; margin-top:8px;">⚠️ La descrierea platii scrie: numele tau + planul ales (ex: "Ion Pop — Gold")</p>
+                </div>
+
+                <div class="biserica-item">
+                    <h3>📞 Contact pentru activare rapida</h3>
+                    <p style="font-size:0.85rem; color:#555; margin-top:8px;">📱 WhatsApp: <strong>0733 777 636</strong></p>
+                    <p style="font-size:0.85rem; color:#555; margin-top:6px;">📧 Email: <strong>maramag2@yahoo.com</strong></p>
+                    <p style="font-size:0.85rem; color:#555; margin-top:12px;">Dupa confirmarea platii, planul tau va fi activat in maxim 24 ore!</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MODAL CONFIRMARE -->
+        <div id="modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+            <div style="background:white; border-radius:16px; padding:32px; max-width:480px; width:90%; text-align:center;">
+                <h2 id="modal-titlu" style="margin-bottom:8px;"></h2>
+                <p id="modal-pret" style="font-size:1.5rem; font-weight:700; margin:16px 0;"></p>
+                <p style="font-size:0.85rem; color:#555; margin-bottom:20px;">Trimite suma prin transfer bancar la:</p>
+                <div class="iban-box" style="font-size:0.85rem;">RO07 BREL 0006 3020 8116 0100</div>
+                <p style="font-size:0.78rem; color:#888; margin:12px 0;">La descriere scrie numele tau si planul ales</p>
+                <p style="font-size:0.85rem; color:#555; margin-bottom:20px;">Apoi trimite dovada pe WhatsApp la <strong>0733 777 636</strong> sau email la <strong>maramag2@yahoo.com</strong></p>
+                <div style="display:flex; gap:12px; justify-content:center;">
+                    <button onclick="inchideModal()" style="padding:12px 24px; background:#f3f4f6; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Inchide</button>
+                    <button onclick="copiazaIBAN()" style="padding:12px 24px; background:#2d2d2d; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer;">📋 Copiaza IBAN</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="navbar.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://finailutdvoxskufpbsj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_BtubSWnqF84BkP_5Yu5lQA_-RD24J5V';
+
+        async function afiseazaPlanActiv() {
+            const token = localStorage.getItem('meet2day_token');
+            const userStr = localStorage.getItem('meet2day_user');
+            if (!token || !userStr) return;
+
+            const user = JSON.parse(userStr);
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/profiluri?user_id=eq.${user.id}`,
+                { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${token}` } }
+            );
+            const profiluri = await response.json();
+            if (profiluri && profiluri.length > 0) {
+                const plan = profiluri[0].plan;
+                const ev = profiluri[0].evenimente_luna;
+                document.getElementById('plan-activ').innerHTML = `Planul tau activ: <strong>${plan.toUpperCase()}</strong> · ${ev} evenimente folosite luna aceasta`;
+            }
+        }
+
+        function alegeaPlan(plan, pret) {
+            const token = localStorage.getItem('meet2day_token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('modal-titlu').textContent = '✅ Ai ales planul ' + plan;
+            document.getElementById('modal-pret').textContent = pret + ' lei / luna';
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function inchideModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function copiazaIBAN() {
+            navigator.clipboard.writeText('RO07BREL0006302081160100');
+            alert('IBAN copiat! ✅');
+        }
+
+        afiseazaPlanActiv();
+    </script>
+</body>
+</html>

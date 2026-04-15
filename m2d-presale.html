@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2D Token Presale – Meet2Day</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            background-image: none;
+            color: #f0e6c8;
+            font-family: 'DM Sans', sans-serif;
+        }
+        body::before { display: none; }
+
+        /* HEADER */
+        .ps-header {
+            background: #0a0a0a;
+            border-bottom: 1px solid #C9A84C;
+            text-align: center;
+            padding: 40px 20px 32px;
+        }
+        .ps-badge {
+            display: inline-block;
+            background: #C9A84C;
+            color: #0a0a0a;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .ps-header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #C9A84C;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .ps-header p {
+            font-size: 0.82rem;
+            color: #666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* MAIN */
+        .ps-main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* PROGRESS */
+        .ps-progress-box {
+            background: #111;
+            border: 1px solid #C9A84C;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .ps-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .ps-progress-label span:last-child { color: #C9A84C; font-weight: 700; }
+        .ps-progress-bar-bg {
+            background: #1a1a1a;
+            border-radius: 20px;
+            height: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .ps-progress-bar-fill {
+            height: 100%;
+            background: #C9A84C;
+            border-radius: 20px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        .ps-progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .ps-stat {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .ps-stat-num {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #C9A84C;
+            display: block;
+        }
+        .ps-stat-label {
+            font-size: 0.68rem;
+            color: #555;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* CUMPARARE */
+        .ps-buy-box {
+            background: #111;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+        .ps-buy-box h2 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .ps-amount-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .ps-amount-btn {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #f0e6c8;
+        }
+        .ps-amount-btn:hover, .ps-amount-btn.selected {
+            border-color: #C9A84C;
+            background: #1a1500;
+        }
+        .ps-amount-btn .usd { font-size: 1rem; font-weight: 700; color: #C9A84C; display: block; }
+        .ps-amount-btn .tokens { font-size: 0.68rem; color: #666; margin-top: 3px; letter-spacing: 0.5px; }
+
+        .ps-custom-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .ps-custom-label {
+            font-size: 0.72rem;
+            color: #666;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .ps-custom-input {
+            flex: 1;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: #f0e6c8;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .ps-custom-input:focus { border-color: #C9A84C; }
+        .ps-custom-input::placeholder { color: #333; }
+
+        .ps-tokens-preview {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.82rem;
+        }
+        .ps-tokens-preview span:first-child { color: #666; letter-spacing: 1px; text-transform: uppercase; font-size: 0.72rem; }
+        .ps-tokens-preview span:last-child { color: #C9A84C; font-weight: 700; font-size: 1rem; }
+
+        .ps-buy-btn {
+            width: 100%;
+            background: #C9A84C;
+            color: #0a0a0a;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .ps-buy-btn:hover { background: #e0bc5a; transform: translateY(-1px); }
+
+        .ps-stripe-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #444;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        /* BENEFICII */
+        .ps-benefits {
+            background: #111;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+        .ps-benefits h2 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .ps-benefit-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .ps-benefit-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .ps-benefit-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .ps-benefit-text h3 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #f0e6c8;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .ps-benefit-text p {
+            font-size: 0.78rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* TOKENOMICS */
+        .ps-tokenomics {
+            background: #111;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+        .ps-tokenomics h2 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .ps-token-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 0.82rem;
+        }
+        .ps-token-row:last-child { border-bottom: none; }
+        .ps-token-row span:first-child { color: #666; }
+        .ps-token-row span:last-child { color: #f0e6c8; font-weight: 600; }
+
+        /* FAQ */
+        .ps-faq {
+            background: #111;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+        .ps-faq h2 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .ps-faq-item { margin-bottom: 16px; }
+        .ps-faq-item h3 { font-size: 0.85rem; font-weight: 600; color: #f0e6c8; margin-bottom: 6px; }
+        .ps-faq-item p { font-size: 0.8rem; color: #666; line-height: 1.6; }
+
+        @media (max-width: 600px) {
+            .ps-header h1 { font-size: 1.8rem; }
+            .ps-amount-grid { grid-template-columns: repeat(2, 1fr); }
+            .ps-progress-stats { grid-template-columns: repeat(3, 1fr); }
+            .ps-custom-row { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="navbar-logo">Meet<span>2</span>Day</a>
+    <ul class="navbar-links">
+        <li><a href="despre-noi.html">Despre Noi</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="abonament.html" style="color:#f59e0b; font-weight:700;">⭐ Abonament</a></li>
+        <li id="navbar-login-btn"><a href="login.html" class="navbar-btn">Login / Sign Up</a></li>
+        <li id="navbar-user-zone" style="display:none;" class="navbar-user">
+            <span class="navbar-user-name" id="navbar-user-name"></span>
+            <button class="navbar-logout" onclick="logout()">Logout</button>
+        </li>
+    </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="ps-header">
+    <div class="ps-badge">🚀 Presale Activ</div>
+    <h1>Meet2Day Token</h1>
+    <p>M2D — Presale Oficial — 10.000.000 Tokene</p>
+</div>
+
+<div class="ps-main">
+
+    <!-- PROGRESS -->
+    <div class="ps-progress-box">
+        <div class="ps-progress-label">
+            <span>Strâns până acum</span>
+            <span id="progress-pct">0%</span>
+        </div>
+        <div class="ps-progress-bar-bg">
+            <div class="ps-progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <div class="ps-progress-stats">
+            <div class="ps-stat">
+                <span class="ps-stat-num" id="stat-strâns">$0</span>
+                <span class="ps-stat-label">Strâns</span>
+            </div>
+            <div class="ps-stat">
+                <span class="ps-stat-num">$10,000</span>
+                <span class="ps-stat-label">Obiectiv</span>
+            </div>
+            <div class="ps-stat">
+                <span class="ps-stat-num" id="stat-tokens">0</span>
+                <span class="ps-stat-label">Tokene vândute</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUMPARARE -->
+    <div class="ps-buy-box">
+        <h2>Cumpără Tokene M2D</h2>
+        <div class="ps-amount-grid">
+            <div class="ps-amount-btn" onclick="selectAmount(10, this)">
+                <span class="usd">$10</span>
+                <div class="tokens">10,000 M2D</div>
+            </div>
+            <div class="ps-amount-btn" onclick="selectAmount(25, this)">
+                <span class="usd">$25</span>
+                <div class="tokens">25,000 M2D</div>
+            </div>
+            <div class="ps-amount-btn" onclick="selectAmount(50, this)">
+                <span class="usd">$50</span>
+                <div class="tokens">50,000 M2D</div>
+            </div>
+            <div class="ps-amount-btn" onclick="selectAmount(100, this)">
+                <span class="usd">$100</span>
+                <div class="tokens">100,000 M2D</div>
+            </div>
+        </div>
+
+        <div class="ps-custom-row">
+            <span class="ps-custom-label">Sumă personalizată ($)</span>
+            <input type="number" class="ps-custom-input" id="custom-amount" placeholder="ex: 200" min="10" oninput="updateCustom(this.value)">
+        </div>
+
+        <div class="ps-tokens-preview">
+            <span>Vei primi</span>
+            <span id="tokens-preview">— M2D</span>
+        </div>
+
+        <button class="ps-buy-btn" id="buy-btn" onclick="initiazaPlata()">
+            💳 Cumpără Acum
+        </button>
+        <p class="ps-stripe-note">🔒 Plată securizată prin Stripe — Card Visa / Mastercard</p>
+    </div>
+
+    <!-- BENEFICII -->
+    <div class="ps-benefits">
+        <h2>Ce primești</h2>
+        <div class="ps-benefit-item">
+            <div class="ps-benefit-icon">🏴‍☠️</div>
+            <div class="ps-benefit-text">
+                <h3>Acces prioritar la Treasure Hunt</h3>
+                <p>Primii cumpărători din presale intră primii în Vânătoarea de Comori din Baia Mare cu tokene M2D.</p>
+            </div>
+        </div>
+        <div class="ps-benefit-item">
+            <div class="ps-benefit-icon">⭐</div>
+            <div class="ps-benefit-text">
+                <h3>Badge „Early Backer"</h3>
+                <p>Profilul tău pe Meet2Day va afișa badge-ul exclusiv de susținător fondator al platformei.</p>
+            </div>
+        </div>
+        <div class="ps-benefit-item">
+            <div class="ps-benefit-icon">🗳️</div>
+            <div class="ps-benefit-text">
+                <h3>Drept de vot în comunitate</h3>
+                <p>Deținătorii de M2D votează direcția platformei — funcții noi, locații, evenimente, parteneriate.</p>
+            </div>
+        </div>
+        <div class="ps-benefit-item">
+            <div class="ps-benefit-icon">💰</div>
+            <div class="ps-benefit-text">
+                <h3>Cel mai mic preț posibil</h3>
+                <p>Prețul de presale este $0.001 per token. După lansarea oficială pe Solana, prețul va crește.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOKENOMICS -->
+    <div class="ps-tokenomics">
+        <h2>Tokenomics</h2>
+        <div class="ps-token-row"><span>Nume token</span><span>Meet2Day Token (M2D)</span></div>
+        <div class="ps-token-row"><span>Blockchain</span><span>Solana</span></div>
+        <div class="ps-token-row"><span>Supply total</span><span>10,000,000 M2D</span></div>
+        <div class="ps-token-row"><span>Preț presale</span><span>$0.001 per M2D</span></div>
+        <div class="ps-token-row"><span>Obiectiv strângere</span><span>$10,000</span></div>
+        <div class="ps-token-row"><span>Lansare oficială</span><span>După atingerea obiectivului</span></div>
+        <div class="ps-token-row"><span>Utilizare fonduri</span><span>Treasure Hunt + Dezvoltare platformă</span></div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="ps-faq">
+        <h2>Întrebări frecvente</h2>
+        <div class="ps-faq-item">
+            <h3>Când primesc tokenii?</h3>
+            <p>Tokenii M2D vor fi distribuiți în wallet-ul tău Solana imediat după lansarea oficială, când obiectivul de $10,000 este atins.</p>
+        </div>
+        <div class="ps-faq-item">
+            <h3>Ce se întâmplă dacă obiectivul nu e atins?</h3>
+            <p>Dacă obiectivul nu este atins în termenul stabilit, toate plățile vor fi rambursate integral.</p>
+        </div>
+        <div class="ps-faq-item">
+            <h3>Cum folosesc tokenii M2D?</h3>
+            <p>Tokenii M2D sunt folosiți pe platforma Meet2Day pentru acces la Treasure Hunt, voturi în comunitate și beneficii exclusive.</p>
+        </div>
+        <div class="ps-faq-item">
+            <h3>Este sigur să cumpăr?</h3>
+            <p>Plata se face prin Stripe, cel mai sigur procesor de plăți din lume. Datele cardului nu sunt stocate pe serverele noastre.</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="navbar.js"></script>
+<script>
+    const STRIPE_PK = 'pk_live_51TMQg52FmeruLu8705aG2x6i5gSSl7Vvrufr0hsb3j5oqspj62VCkSAhjt4IKRFc0TZVQDtzuSllSZG1YxAgwHvp00SmYHzCt5';
+    let stripe = null;
+
+    const stripeScript = document.createElement('script');
+    stripeScript.src = 'https://js.stripe.com/v3/';
+    stripeScript.onload = function() { stripe = Stripe(STRIPE_PK); };
+    document.head.appendChild(stripeScript);
+    const PRET_TOKEN = 0.001;
+    const OBIECTIV = 10000;
+    let sumaSelectata = 0;
+
+    function selectAmount(usd, el) {
+        sumaSelectata = usd;
+        document.querySelectorAll('.ps-amount-btn').forEach(b => b.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('custom-amount').value = '';
+        updatePreview(usd);
+    }
+
+    function updateCustom(val) {
+        sumaSelectata = parseFloat(val) || 0;
+        document.querySelectorAll('.ps-amount-btn').forEach(b => b.classList.remove('selected'));
+        updatePreview(sumaSelectata);
+    }
+
+    function updatePreview(usd) {
+        const tokens = Math.floor(usd / PRET_TOKEN);
+        document.getElementById('tokens-preview').textContent = tokens.toLocaleString() + ' M2D';
+    }
+
+    function updateProgress(strâns) {
+        const pct = Math.min((strâns / OBIECTIV) * 100, 100);
+        document.getElementById('progress-fill').style.width = pct + '%';
+        document.getElementById('progress-pct').textContent = pct.toFixed(1) + '%';
+        document.getElementById('stat-strâns').textContent = '$' + strâns.toLocaleString();
+        document.getElementById('stat-tokens').textContent = Math.floor(strâns / PRET_TOKEN).toLocaleString();
+    }
+
+    async function initiazaPlata() {
+        if (sumaSelectata < 10) {
+            alert('Suma minimă este $10.');
+            return;
+        }
+
+        const btn = document.getElementById('buy-btn');
+        btn.disabled = true;
+        btn.textContent = '⏳ Se procesează...';
+
+        try {
+            // Apeleaza backend-ul Supabase pentru a crea sesiunea de plata
+            const response = await fetch('https://finalutdvoxskufpbsj.supabase.co/functions/v1/create-checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZpbmFpbHV0ZHZveHNrdWZwYnNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NDM0OTMsImV4cCI6MjA5MDAxOTQ5M30.O761bXei1ILEJq9YJfehWj4PCyo2ZlOnyVIaA-qghBY',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZpbmFpbHV0ZHZveHNrdWZwYnNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NDM0OTMsImV4cCI6MjA5MDAxOTQ5M30.O761bXei1ILEJq9YJfehWj4PCyo2ZlOnyVIaA-qghBY'
+                },
+                body: JSON.stringify({
+                    amount: sumaSelectata,
+                    tokens: Math.floor(sumaSelectata / PRET_TOKEN)
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.sessionId) {
+                await stripe.redirectToCheckout({ sessionId: data.sessionId });
+            } else {
+                throw new Error('Nu s-a putut crea sesiunea de plată.');
+            }
+        } catch (err) {
+            alert('Eroare la procesarea plății. Încearcă din nou.');
+            console.error(err);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '💳 Cumpără Acum';
+        }
+    }
+
+    updateProgress(0);
+</script>
+</body>
+</html>

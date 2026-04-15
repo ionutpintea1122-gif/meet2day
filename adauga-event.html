@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adauga Eveniment - Meet2Day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">Meet<span>2</span>Day</a>
+        <ul class="navbar-links">
+            <li><a href="despre-noi.html">Despre Noi</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="navbar-login-btn"><a href="login.html" class="navbar-btn">Login / Sign Up</a></li>
+            <li id="navbar-user-zone" style="display:none;" class="navbar-user">
+                <span class="navbar-user-name" id="navbar-user-name"></span>
+                <button class="navbar-logout" onclick="logout()">Logout</button>
+            </li>
+        </ul>
+    </nav>
+
+    <header>
+        <a href="index.html" class="inapoi">← Inapoi</a>
+        <h1>🎉 Adauga Evenimentul Tau</h1>
+        <p>Conecteaza-te cu oameni din judetul tau</p>
+    </header>
+
+    <main>
+        <div style="max-width:600px; margin:40px auto; padding:0 20px;">
+
+            <!-- PLAN INFO -->
+            <div id="plan-info" style="display:none; border-radius:10px; padding:14px 20px; margin-bottom:20px; text-align:center; font-size:0.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase;"></div>
+
+            <div id="mesaj-succes" style="display:none; background:#d4edda; border:1.5px solid #28a745; border-radius:10px; padding:20px; text-align:center; margin-bottom:20px;">
+                <h3 style="color:#28a745;">✅ Evenimentul a fost adaugat!</h3>
+                <p style="color:#555; margin-top:8px;">Mergi inapoi si vei vedea evenimentul tau in lista.</p>
+            </div>
+
+            <div id="mesaj-eroare" style="display:none; background:#f8d7da; border:1.5px solid #dc3545; border-radius:10px; padding:20px; text-align:center; margin-bottom:20px;">
+                <h3 style="color:#dc3545;">❌ Eroare!</h3>
+                <p id="text-eroare" style="color:#555; margin-top:8px;"></p>
+            </div>
+
+            <div id="mesaj-limita" style="display:none; background:#fff3cd; border:1.5px solid #ffc107; border-radius:10px; padding:20px; text-align:center; margin-bottom:20px;">
+                <h3 style="color:#856404;">⚠️ Limita lunara atinsa!</h3>
+                <p style="color:#555; margin-top:8px;" id="text-limita"></p>
+                <div style="margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                    <div style="background:#fee2e2; border:2px solid #dc3545; border-radius:10px; padding:12px 20px;">
+                        <p style="font-size:0.75rem; font-weight:700; color:#dc3545; text-transform:uppercase;">Premium</p>
+                        <p style="font-size:1.2rem; font-weight:700; color:#dc3545;">30 lei/luna</p>
+                        <p style="font-size:0.75rem; color:#555;">5 evenimente/luna</p>
+                    </div>
+                    <div style="background:#f3f4f6; border:2px solid #1a1a1a; border-radius:10px; padding:12px 20px;">
+                        <p style="font-size:0.75rem; font-weight:700; color:#1a1a1a; text-transform:uppercase;">Gold</p>
+                        <p style="font-size:1.2rem; font-weight:700; color:#1a1a1a;">50 lei/luna</p>
+                        <p style="font-size:0.75rem; color:#555;">10 evenimente/luna</p>
+                    </div>
+                    <div style="background:#fdf4ff; border:2px solid #a21caf; border-radius:10px; padding:12px 20px;">
+                        <p style="font-size:0.75rem; font-weight:700; color:#a21caf; text-transform:uppercase;">Diamond</p>
+                        <p style="font-size:1.2rem; font-weight:700; color:#a21caf;">70 lei/luna</p>
+                        <p style="font-size:0.75rem; color:#555;">15 evenimente/luna</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lista-biserici" id="formular">
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Numele tau</label>
+                    <input type="text" id="nume_user" placeholder="Ex: Andrei, 24 ani" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Titlul evenimentului</label>
+                    <input type="text" id="titlu" placeholder="Ex: Caut colegi pentru hiking pe Ignis" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Descriere</label>
+                    <textarea id="descriere" placeholder="Spune mai multe despre evenimentul tau..." rows="4" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit; resize:vertical;"></textarea>
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Data</label>
+                    <input type="text" id="data_event" placeholder="Ex: Sambata, 15 aprilie" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Ora</label>
+                    <input type="text" id="ora" placeholder="Ex: 09:00" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Oras</label>
+                    <input type="text" id="oras" placeholder="Ex: Baia Mare" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit;">
+                </div>
+
+                <div class="biserica-item">
+                    <label style="display:block; font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a;">Categorie</label>
+                    <select id="categorie" style="width:100%; padding:12px; border:1.5px solid #2d2d2d; border-radius:8px; font-size:0.95rem; background:#fdf8ee; font-family:inherit;">
+                        <option value="">Alege categoria...</option>
+                        <option value="hiking">🥾 Hiking</option>
+                        <option value="night-out">🍻 Night Out</option>
+                        <option value="gastronomie">🍽️ Gastronomie</option>
+                        <option value="ciclism">🚵 Ciclism</option>
+                        <option value="evenimente-culturale">🎭 Evenimente Culturale</option>
+                        <option value="maraton">🏃 Maraton</option>
+                        <option value="descopera">🧭 Descopera</option>
+                        <option value="festivaluri">🎉 Festivaluri</option>
+                    </select>
+                </div>
+
+                <div class="biserica-item">
+                    <button id="btn-submit" onclick="adaugaEventClick()" style="width:100%; padding:16px; background:#2d2d2d; color:white; border:none; border-radius:10px; font-size:0.9rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer;">
+                        + Adauga Evenimentul
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL = 'https://finailutdvoxskufpbsj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_BtubSWnqF84BkP_5Yu5lQA_-RD24J5V';
+
+        const LIMITE_PLAN = {
+            'free': 2,
+            'premium': 5,
+            'gold': 10,
+            'diamond': 15
+        };
+
+        const CULORI_PLAN = {
+            'free': null,
+            'premium': '#dc3545',
+            'gold': '#1a1a1a',
+            'diamond': '#a21caf'
+        };
+
+        let profilUser = null;
+
+        async function incarcaProfil() {
+            const token = localStorage.getItem('meet2day_token');
+            const userStr = localStorage.getItem('meet2day_user');
+            if (!token || !userStr) return;
+
+            const user = JSON.parse(userStr);
+
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/profiluri?user_id=eq.${user.id}`,
+                {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            );
+
+            const profiluri = await response.json();
+
+            const lunaAcum = new Date().toISOString().substring(0, 7);
+
+            if (!profiluri || profiluri.length === 0) {
+                // Cream profil nou
+                await fetch(`${SUPABASE_URL}/rest/v1/profiluri`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${token}`,
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        user_id: user.id,
+                        plan: 'free',
+                        evenimente_luna: 0,
+                        luna_curenta: lunaAcum
+                    })
+                });
+                profilUser = { plan: 'free', evenimente_luna: 0, luna_curenta: lunaAcum };
+            } else {
+                profilUser = profiluri[0];
+                // Resetam contorul daca e luna noua
+                if (profilUser.luna_curenta !== lunaAcum) {
+                    await fetch(`${SUPABASE_URL}/rest/v1/profiluri?user_id=eq.${user.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ evenimente_luna: 0, luna_curenta: lunaAcum })
+                    });
+                    profilUser.evenimente_luna = 0;
+                    profilUser.luna_curenta = lunaAcum;
+                }
+            }
+
+            // Afisam planul
+            const planInfo = document.getElementById('plan-info');
+            const plan = profilUser.plan;
+            const limita = LIMITE_PLAN[plan];
+            const ramase = limita - profilUser.evenimente_luna;
+
+            let culoare = '#2d2d2d';
+            let bg = '#f3f4f6';
+            if (plan === 'premium') { culoare = '#dc3545'; bg = '#fee2e2'; }
+            if (plan === 'gold') { culoare = '#1a1a1a'; bg = '#f3f4f6'; }
+            if (plan === 'diamond') { culoare = '#a21caf'; bg = '#fdf4ff'; }
+
+            planInfo.style.display = 'block';
+            planInfo.style.background = bg;
+            planInfo.style.color = culoare;
+            planInfo.style.border = `2px solid ${culoare}`;
+            planInfo.textContent = `Plan ${plan.toUpperCase()} · ${profilUser.evenimente_luna}/${limita} evenimente folosite luna aceasta · ${ramase} ramase`;
+
+            // Daca a depasit limita
+            if (profilUser.evenimente_luna >= limita) {
+                document.getElementById('formular').style.display = 'none';
+                document.getElementById('mesaj-limita').style.display = 'block';
+                document.getElementById('text-limita').textContent = `Ai atins limita de ${limita} evenimente pentru planul ${plan.toUpperCase()}. Upgradeaza planul pentru mai multe!`;
+            }
+        }
+
+        async function adaugaEventClick() {
+            const btn = document.getElementById('btn-submit');
+            btn.textContent = 'Se trimite...';
+            btn.disabled = true;
+
+            const titlu = document.getElementById('titlu').value.trim();
+            const descriere = document.getElementById('descriere').value.trim();
+            const data_event = document.getElementById('data_event').value.trim();
+            const ora = document.getElementById('ora').value.trim();
+            const categorie = document.getElementById('categorie').value;
+            const oras = document.getElementById('oras').value.trim();
+            const nume_user = document.getElementById('nume_user').value.trim();
+
+            if (!titlu || !descriere || !nume_user || !categorie) {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = 'Te rugam sa completezi cel putin: nume, titlu, descriere si categorie!';
+                btn.textContent = '+ Adauga Evenimentul';
+                btn.disabled = false;
+                return;
+            }
+
+            // Verificam limita
+            if (profilUser) {
+                const limita = LIMITE_PLAN[profilUser.plan];
+                if (profilUser.evenimente_luna >= limita) {
+                    document.getElementById('formular').style.display = 'none';
+                    document.getElementById('mesaj-limita').style.display = 'block';
+                    btn.textContent = '+ Adauga Evenimentul';
+                    btn.disabled = false;
+                    return;
+                }
+            }
+
+            document.getElementById('mesaj-eroare').style.display = 'none';
+            document.getElementById('mesaj-succes').style.display = 'none';
+
+            try {
+                const token = localStorage.getItem('meet2day_token');
+                const userStr = localStorage.getItem('meet2day_user');
+                const user = userStr ? JSON.parse(userStr) : null;
+
+                const plan = profilUser ? profilUser.plan : 'free';
+
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/evenimente`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${token || SUPABASE_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        titlu, descriere, data_event, ora,
+                        categorie, oras, nume_user, plan
+                    })
+                });
+
+                if (response.ok) {
+                    // Actualizam contorul
+                    if (profilUser && user) {
+                        await fetch(`${SUPABASE_URL}/rest/v1/profiluri?user_id=eq.${user.id}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'apikey': SUPABASE_KEY,
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ evenimente_luna: profilUser.evenimente_luna + 1 })
+                        });
+                        profilUser.evenimente_luna++;
+                    }
+
+                    document.getElementById('mesaj-succes').style.display = 'block';
+                    document.getElementById('titlu').value = '';
+                    document.getElementById('descriere').value = '';
+                    document.getElementById('data_event').value = '';
+                    document.getElementById('ora').value = '';
+                    document.getElementById('oras').value = '';
+                    document.getElementById('nume_user').value = '';
+                    document.getElementById('categorie').value = '';
+                    window.scrollTo(0, 0);
+                    incarcaProfil();
+                } else {
+                    const err = await response.json();
+                    document.getElementById('mesaj-eroare').style.display = 'block';
+                    document.getElementById('text-eroare').textContent = 'Eroare: ' + (err.message || err.details || JSON.stringify(err));
+                }
+            } catch(e) {
+                document.getElementById('mesaj-eroare').style.display = 'block';
+                document.getElementById('text-eroare').textContent = 'Eroare conexiune: ' + e.message;
+            }
+
+            btn.textContent = '+ Adauga Evenimentul';
+            btn.disabled = false;
+        }
+
+        incarcaProfil();
+    </script>
+
+    <script src="navbar.js"></script>
+</body>
+</html>

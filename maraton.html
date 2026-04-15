@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maraton & Alergare - Baia Mare</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .acc-item { border: 1.5px solid #2d2d2d; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+        .acc-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; cursor: pointer; background: #fdf8ee; }
+        .acc-header:hover { background: #faefc8; }
+        .acc-title { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #1a1a1a; }
+        .acc-arrow { font-size: 11px; color: #888; transition: transform 0.2s; }
+        .acc-arrow.open { transform: rotate(180deg); }
+        .acc-body { display: none; padding: 12px 16px; border-top: 1.5px solid #2d2d2d; background: white; }
+        .acc-body.open { display: block; }
+        .acc-detail { font-size: 0.82rem; color: #555; margin-bottom: 4px; }
+        .acc-section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #5c4a1e; background: #fdf3dc; border: 2px solid #fdf3dc; border-radius: 8px; padding: 6px 10px; text-align: center; margin-bottom: 12px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">Meet<span>2</span>Day</a>
+        <ul class="navbar-links">
+            <li><a href="despre-noi.html">Despre Noi</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="abonament.html" style="color:#f59e0b; font-weight:700;">⭐ Abonament</a></li>
+            <li id="navbar-login-btn"><a href="login.html" class="navbar-btn">Login / Sign Up</a></li>
+            <li id="navbar-user-zone" style="display:none;" class="navbar-user">
+                <span class="navbar-user-name" id="navbar-user-name"></span>
+                <button class="navbar-logout" onclick="logout()">Logout</button>
+            </li>
+        </ul>
+    </nav>
+
+    <header>
+        <a href="baia-mare.html" class="inapoi">← Inapoi</a>
+        <h1>🏃 Maraton & Alergare</h1>
+        <p>Alearga in Baia Mare si Maramures</p>
+    </header>
+
+    <main>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1200px; margin:36px auto; padding:0 20px;">
+
+            <div>
+                <div class="acc-section-title">Locuri de Alergare in Oras</div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🏃 Parcul Municipal Regina Maria</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📍 Parcul Municipal Regina Maria, Baia Mare</p>
+                        <p class="acc-detail">📏 Pista de alergare: 800m cauciucata, semnalizata</p>
+                        <p class="acc-detail">✨ Pista moderna, deschisa publicului zilnic. Folosita de HCM si FCM Baia Mare.</p>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🌳 Parcul Tineretului</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📍 Parcul Tineretului, Baia Mare</p>
+                        <p class="acc-detail">✨ Traseu de alergare in parc, ideal pentru familii si incepatori.</p>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🏟️ Pista de Atletism</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📍 Str. Transilvaniei, Baia Mare</p>
+                        <p class="acc-detail">🚌 Autobuz nr. 5, 8 — statie Canal 7</p>
+                        <p class="acc-detail">✨ Pista de atletism profesionala pentru antrenamente structurate.</p>
+                    </div>
+                </div>
+
+                <div class="acc-section-title">Trasee Trail Running</div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🌲 Parc Municipal — Piatra Virgina</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📏 ~6 km · ⏱ 50-60 min · 🟡 Mediu</p>
+                        <p class="acc-detail">📍 Start: Parcul Municipal, marcaj triunghi albastru</p>
+                        <p class="acc-detail">✨ Trail clasic din Baia Mare — 3km dus, cobori inapoi in parc.</p>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">💧 Colonia Topitorilor — Lacul Bodi</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📏 ~6 km · ⏱ 50-60 min · 🟢 Usor-Mediu</p>
+                        <p class="acc-detail">📍 Start: Colonia Topitorilor, Baia Mare</p>
+                        <p class="acc-detail">✨ Traseu spre Lacul Bodi prin Ferneziu, frumos in orice anotimp.</p>
+                    </div>
+                </div>
+
+                <div class="acc-section-title">Competitii & Evenimente</div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🏅 Baia Mare Half Marathon</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📅 Septembrie 2026 · 📍 Baia Mare</p>
+                        <p class="acc-detail">✨ Semimaraton pe sosea, organizat de Clubul Rotary Baia Mare.</p>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🏔️ Maraton Maramures</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📅 Iunie 2026 · 📍 Start: Parcul Regina Maria</p>
+                        <p class="acc-detail">🌐 maratonmaramures.ro</p>
+                        <p class="acc-detail">📏 3 trasee: 15km · 21km · 42km montan</p>
+                        <p class="acc-detail">✨ Trail running in natura pe Drumul Maramuresului. Party la final!</p>
+                    </div>
+                </div>
+
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggle(this)">
+                        <span class="acc-title">🌸 Crosul Primaverii Baia Mare</span>
+                        <span class="acc-arrow">▼</span>
+                    </div>
+                    <div class="acc-body">
+                        <p class="acc-detail">📅 21 Martie 2026 · 📍 Baia Mare</p>
+                        <p class="acc-detail">✨ Cros de primavara accesibil tuturor!</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <h2 style="text-align:center; margin-bottom:16px; font-size:0.85rem; letter-spacing:2px; color:#5c4a1e; background-color:#fdf3dc; border:2px solid #fdf3dc; border-radius:8px; padding:6px 10px;">Cauta Parteneri de Alergare</h2>
+
+                <button class="btn-adauga" onclick="adaugaEvent()">+ Adauga evenimentul tau</button>
+
+                <div id="lista-evenimente">
+                    <p style="text-align:center; color:#888; font-size:0.85rem; margin-top:20px;">Se incarca...</p>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="navbar.js"></script>
+    <script>
+        function toggle(header) {
+            const body = header.nextElementSibling;
+            const arrow = header.querySelector('.acc-arrow');
+            body.classList.toggle('open');
+            arrow.classList.toggle('open');
+        }
+
+        const SUPABASE_URL = 'https://finailutdvoxskufpbsj.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_BtubSWnqF84BkP_5Yu5lQA_-RD24J5V';
+
+        async function incarcaEvenimente() {
+            try {
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/evenimente?categorie=eq.maraton&order=created_at.desc`,
+                    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+                );
+                const evenimente = await response.json();
+                const lista = document.getElementById('lista-evenimente');
+                if (!evenimente || evenimente.length === 0) {
+                    lista.innerHTML = '<p style="text-align:center; color:#888; font-size:0.85rem; margin-top:20px;">Nu sunt evenimente momentan. Fii primul care adauga!</p>';
+                    return;
+                }
+                lista.innerHTML = evenimente.map(ev => {
+                    const plan = ev.plan || 'free';
+                    const clasa = plan !== 'free' ? `plan-${plan}` : '';
+                    const badge = plan !== 'free' ? `<span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:2px 8px; border-radius:20px; margin-left:8px; background:rgba(255,255,255,0.2);">${plan.toUpperCase()}</span>` : '';
+                    return `
+                        <div class="event-card ${clasa}">
+                            <div class="event-header">
+                                <div class="avatar">${ev.nume_user ? ev.nume_user.substring(0,2).toUpperCase() : 'MM'}</div>
+                                <div>
+                                    <h3>${ev.nume_user || 'Anonim'} ${badge}</h3>
+                                    <p class="data-event">${ev.data_event || ''} ${ev.ora ? '· ' + ev.ora : ''}</p>
+                                </div>
+                            </div>
+                            <p style="font-size:0.85rem; font-weight:600; margin-bottom:6px;">📌 ${ev.titlu}</p>
+                            <p class="descriere-event">${ev.descriere}</p>
+                            ${ev.oras ? `<p style="font-size:0.78rem; margin-top:6px; opacity:0.8;">📍 ${ev.oras}</p>` : ''}
+                        </div>
+                    `;
+                }).join('');
+            } catch(e) {
+                document.getElementById('lista-evenimente').innerHTML = '<p style="text-align:center; color:#888; font-size:0.85rem; margin-top:20px;">Nu sunt evenimente momentan. Fii primul care adauga!</p>';
+            }
+        }
+
+        incarcaEvenimente();
+    </script>
+</body>
+</html>

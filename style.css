@@ -1,0 +1,504 @@
+/* ===== IMPORT FONT ===== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ===== GENERAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #f5f0e8;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #1a1a1a;
+    padding-top: 60px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #1a1a1a;
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.navbar-logo {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.navbar-logo span {
+    color: #93c5fd;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+}
+
+.navbar-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+    color: white;
+}
+
+.navbar-btn {
+    background: #1a56db;
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.78rem !important;
+    transition: background 0.2s !important;
+}
+
+.navbar-btn:hover {
+    background: #1447b8;
+    color: white !important;
+}
+
+/* ===== NAVBAR USER ===== */
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar-user-name {
+    color: #93c5fd;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.navbar-logout {
+    background: transparent;
+    color: #ccc;
+    border: 1.5px solid #ccc;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.navbar-logout:hover {
+    background: #ccc;
+    color: #1a1a1a;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: #1a56db;
+    color: white;
+    text-align: center;
+    padding: 36px 20px 28px;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+header p {
+    font-size: 0.85rem;
+    color: #bfdbfe;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* ===== BUTON INAPOI ===== */
+.inapoi {
+    display: inline-block;
+    color: #bfdbfe;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+
+.inapoi:hover {
+    color: white;
+}
+
+/* ===== MAIN ===== */
+main {
+    max-width: 1000px;
+    margin: 36px auto;
+    padding: 0 20px;
+}
+
+main h2 {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: #4a5568;
+}
+
+/* ===== GRID JUDETE ===== */
+.judete-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.judet-card {
+    background-color: #fdf8ee;
+    border: 1.5px solid #2d2d2d;
+    border-radius: 10px;
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #1a1a1a;
+    display: block;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.judet-card:hover {
+    background-color: #faefc8;
+    transform: translateY(-3px);
+}
+
+.judet-card .emoji {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.judet-card h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+}
+
+/* ===== DOUA COLOANE ===== */
+.doua-coloane {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 36px auto;
+    padding: 0 20px;
+}
+
+.coloana h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #1a56db;
+    border-bottom: 1.5px solid #1a56db;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+}
+
+/* ===== OPTIUNE CARD ===== */
+.optiune-card {
+    background-color: #fdf8ee;
+    border: 1.5px solid #2d2d2d;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.optiune-card:hover {
+    background-color: #faefc8;
+    transform: translateY(-2px);
+}
+
+.optiune-card .emoji {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.optiune-card h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+
+.optiune-card p {
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* ===== EVENT CARD ===== */
+.event-card {
+    background-color: #fdf8ee;
+    border: 1.5px solid #2d2d2d;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+}
+
+.event-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #dbeafe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a56db;
+    flex-shrink: 0;
+}
+
+.event-header h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.data-event {
+    font-size: 0.8rem;
+    color: #1a56db;
+    font-weight: 500;
+}
+
+.descriere-event {
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.btn-contact {
+    background: #2d2d2d;
+    color: white;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+}
+
+.btn-contact:hover {
+    background: #1a1a1a;
+}
+
+/* ===== BUTON ADAUGA ===== */
+.btn-adauga {
+    width: 100%;
+    padding: 8px 16px;
+    background: #dbeafe;
+    border: 1.5px solid #93c5fd;
+    border-radius: 8px;
+    color: #1a56db;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 16px;
+}
+
+.btn-adauga:hover {
+    background: #bfdbfe;
+    border-color: #1a56db;
+}
+
+/* ===== LISTA BISERICI ===== */
+.lista-biserici {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.biserica-item {
+    background: #fdf8ee;
+    border: 1.5px solid #2d2d2d;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 12px;
+}
+
+.biserica-item h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.biserica-item p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* ===== CARDURI PLANURI ===== */
+.event-card.plan-premium {
+    background: #dc3545;
+    border: 2px solid #b02a37;
+    color: white;
+}
+
+.event-card.plan-premium h3,
+.event-card.plan-premium p,
+.event-card.plan-premium .data-event,
+.event-card.plan-premium .descriere-event {
+    color: white !important;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.event-card.plan-gold {
+    background: #1a1a1a;
+    border: 2px solid #f59e0b;
+    color: #f59e0b;
+}
+
+.event-card.plan-gold h3,
+.event-card.plan-gold p,
+.event-card.plan-gold .data-event,
+.event-card.plan-gold .descriere-event {
+    color: #f59e0b !important;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.5px;
+}
+
+.event-card.plan-diamond {
+    background: #a21caf;
+    border: 2px solid #86198f;
+    color: white;
+}
+
+.event-card.plan-diamond h3,
+.event-card.plan-diamond p,
+.event-card.plan-diamond .data-event,
+.event-card.plan-diamond .descriere-event {
+    color: white !important;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 0 16px;
+        flex-wrap: wrap;
+        height: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        gap: 8px;
+    }
+
+    .navbar-links {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .navbar-links a {
+        font-size: 0.7rem;
+    }
+
+    .navbar-btn {
+        padding: 6px 12px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .judete-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    div[style*="grid-template-columns:1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr"],
+    div[style*="grid-template-columns:2fr 1fr"],
+    div[style*="grid-template-columns: 2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    .planuri-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    header h1 {
+        font-size: 1.8rem !important;
+    }
+
+    .navbar-user {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .navbar-user-name {
+        font-size: 0.7rem !important;
+    }
+
+    .navbar-logout {
+        padding: 5px 10px !important;
+        font-size: 0.7rem !important;
+    }
+}
